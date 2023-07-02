@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+        {% block body %}
+        <div class="row">
+            <div class="col-md-10 offset-md-3">
+                <div class="col-lg-8">
+                <h3>Makaleler</h3>
+                <hr>
+            </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-10 offset-md-3">
+                <div class="col-lg-8">
+                    <form ><!-- bootstrap 4 search -->
+                        {%csrf_token%}
+                        <div class="input-group">
+                            <input type="text" name="keyword" class=" rounded" placeholder="Ara..." aria-label="Search" aria-describedby="search-addon" />
+                            <button type="submit" class="btn btn-outline-danger">ARA</button>
+                          </div>
+                    
+                    </form>
+            </div>
+            </div>
+        </div>
+        {% if articles %}
+
+        {% for article in articles  %}
+        
+        <div class="row">
+            <div class="col-md-10 offset-md-3">
+            <div class="col-lg-8">
+                <!-- Post content-->
+                <h1 class="col-lg-8">
+                   <a href="{% url 'article:detail' article.id %}"><h4 class="mt-4">{{article.title}}</h4></a> 
+
+                    <p class="lead">
+                        
+                        {{article.author.username}} tarafından yayınlandı.
+                    </p>    
+                    <hr>
+                    <!-- Post content
+                    <p class= "lead">
+                        {{article.content|safe|truncatewords:10}} Ckeditör için safe kullanıyoruz,truncatewords ile devamını oku özelliğini kullanıyoruz.ilk 10 kelime gözükür.
+                    </p>
+                    -->
+                    
+                </div>
+                
+                </div>
+        </div>
+        
+        {% endfor %}
+
+        
+        {% else  %}
+        <div class="row">
+            <div class="col-md-10 offset-md-3">
+                <div class="col-lg-8">
+                <div class="alert alert-danger">
+                    Makale Bulunamadı.
+                </div>
+            </div>
+            </div>
+        </div>
+        
+
+        {% endif %}
+
+        {% endblock  %}
